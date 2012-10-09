@@ -104,30 +104,37 @@ class UploadedFile {
         uploadedFileService.deleteUploadedFile(this)
     }
 
-	// TODO: why not with dependency injection??
-	def getUploadedFileService() {
-		if (!uploadedFileService) {
-			uploadedFileService = new UploadedFileService()
-		}
-		uploadedFileService
-	}
+    // TODO: why not with dependency injection??
+    def getUploadedFileService() {
+    	if (!uploadedFileService) {
+    		uploadedFileService = new UploadedFileService()
+    	}
+    	uploadedFileService
+    }
 
-	def getSamplesWithData() {
+    def getAssaySamplesWithData() {
 
-		if (!matrix) return []
+        if (!matrix) return []
 
-		uploadedFileService = new UploadedFileService()
+        uploadedFileService = new UploadedFileService()
 
-		def sampleNamesInFile = uploadedFileService.getSampleNames(this)
-		def samplesInAssay = Assay.get(assay?.id)?.samples
-		def sampleNamesInAssay = samplesInAssay*.name
-		sampleNamesInAssay.intersect(sampleNamesInFile)
-	}
+        def sampleNames = uploadedFileService.getSampleNames(this)
+        def samplesInAssay = Assay.get(assay?.id)?.samples
+        def sampleNamesInAssay = samplesInAssay*.name
 
-	def determineAmountOfSamplesWithData() {
-		// TODO: it's very inefficient to constantly determine this on the fly
-		getSamplesWithData().size()
-	}
+        sampleNames.intersect(sampleNamesInAssay)
+    }
+
+    def getSamplesWithData() {
+        if (!matrix) return []
+        uploadedFileService = new UploadedFileService()
+        uploadedFileService.getSampleNames(this)
+    }
+
+    def determineAmountOfSamplesWithData() {
+    	// TODO: it's very inefficient to constantly determine this on the fly
+    	getSamplesWithData().size()
+    }
 
     def getDataColumnHeaders() {
 

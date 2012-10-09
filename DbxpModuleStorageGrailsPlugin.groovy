@@ -1,6 +1,6 @@
 class DbxpModuleStorageGrailsPlugin {
     // the plugin version
-    def version = "0.4.1"
+    def version = "0.4.2"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
 
@@ -21,7 +21,7 @@ Brief description of the plugin.
     def documentation = "http://grails.org/plugin/dbxp-module-storage"
 
     def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional), this event occurs before 
+        // TODO Implement additions to web.xml (optional), this event occurs before
     }
 
     def doWithSpring = {
